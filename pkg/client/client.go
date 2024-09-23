@@ -68,7 +68,7 @@ func (c *Client) getDateTimeJson() (string, error) {
 	}
 
 	var response struct {
-		DateTime string `json:datetime`
+		DateTime string `json:"datetime"`
 	}
 	err = json.Unmarshal(data, &response)
 	if err != nil {

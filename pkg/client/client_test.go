@@ -15,7 +15,10 @@ func TestGetDateTimeJson(t *testing.T) {
 			}
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
-			w.Write([]byte(`{"datetime":"` + expectedDateTime + `"}`))
+			_, err := w.Write([]byte(`{"datetime":"` + expectedDateTime + `"}`))
+			if err != nil {
+				t.Fatalf("Failed to write response: %v", err)
+			}
 		}))
 		defer server.Close()
 
@@ -51,7 +54,10 @@ func TestGetDateTimePlain(t *testing.T) {
 				t.Fatalf("Expected path to be /datetime/plain, got %s", r.URL.Path)
 			}
 			w.WriteHeader(http.StatusOK)
-			w.Write([]byte(expectedDateTime))
+			_, err := w.Write([]byte(expectedDateTime))
+			if err != nil {
+				t.Fatalf("Failed to write response: %v", err)
+			}
 		}))
 		defer server.Close()
 
